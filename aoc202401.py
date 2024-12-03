@@ -4,7 +4,7 @@ raw = scrape(1)
 
 data = str(raw).replace("b'","").split("\\n")[0:-1]
 
-def part1(data):
+def part1(data=data):
 
     left = [int(i.split("   ")[0]) for i in data]
     right = [int(i.split("   ")[1]) for i in data]
@@ -19,7 +19,7 @@ def part1(data):
         
     print(f"Distance: {total}")
 
-def part2(data):
+def part2(data=data):
 
     left = set([int(i.split("   ")[0]) for i in data])
     right = [int(i.split("   ")[1]) for i in data]
@@ -35,5 +35,5 @@ def part2(data):
     
     print(f"Similarity: {total}")
 
-part1(data)
-part2(data)
+part1()
+part2()
