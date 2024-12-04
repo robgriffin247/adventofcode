@@ -2,13 +2,15 @@ from santas_little_helpers.scraper_elf import scrape
 
 
 raw = scrape(1)
-data = str(raw).replace("b'","").split("\\n")[0:-1]
+data = str(raw).replace("b'","")
 
 
 def part1(data=data):
 
-    left = [int(i.split("   ")[0]) for i in data]
-    right = [int(i.split("   ")[1]) for i in data]
+    split_data = data.split("\\n")[0:-1]
+    
+    left = [int(i.split("   ")[0]) for i in split_data]
+    right = [int(i.split("   ")[1]) for i in split_data]
 
     left.sort()
     right.sort()
@@ -23,8 +25,10 @@ def part1(data=data):
 
 def part2(data=data):
 
-    left = set([int(i.split("   ")[0]) for i in data])
-    right = [int(i.split("   ")[1]) for i in data]
+    split_data = data.split("\\n")[0:-1]
+
+    left = set([int(i.split("   ")[0]) for i in split_data])
+    right = [int(i.split("   ")[1]) for i in split_data]
 
     total = 0
 

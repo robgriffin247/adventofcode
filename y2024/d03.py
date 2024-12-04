@@ -3,14 +3,14 @@ import re
 
 
 raw = scrape(3)
-data = str(raw).replace("b'","").split("\\n")[0:-1]
+data = str(raw).replace("b'","")
 
 
 def part1(data=data):
     
-    valid_expressions = re.findall(r"mul\([0-9]*,[0-9]*\)", str(data))
+    expressions = re.findall(r"mul\([0-9]*,[0-9]*\)", str(data))
     
-    value_pairs = [v.replace("mul(", "").replace(")", "").split(",") for v in valid_expressions]
+    value_pairs = [v.replace("mul(", "").replace(")", "").split(",") for v in expressions]
     
     scores = [int(v[0]) * int(v[1]) for v in value_pairs]
     
@@ -20,7 +20,7 @@ def part1(data=data):
     
 
 def part2(data=data):
-    
+
     expressions = re.findall(r"mul\([0-9]*,[0-9]*\)|do\(\)|don't\(\)", str(data))
     
     valid_expressions = []
@@ -41,4 +41,4 @@ def part2(data=data):
     
     total = sum(scores)
 
-    return 'incomplete'
+    return total

@@ -3,12 +3,14 @@ import numpy as np
 
 
 raw = scrape(2)
-data = str(raw).replace("b'","").split("\\n")[0:-1]
+data = str(raw).replace("b'","")
 
 
 def part1(data=data):
+
+    split_data = data.split("\\n")[0:-1]
     safe = 0
-    rows = [[int(v) for v in r.split(" ")] for r in data]
+    rows = [[int(v) for v in r.split(" ")] for r in split_data]
     for row in rows:
         steps = []
         for i, value in enumerate(row):
