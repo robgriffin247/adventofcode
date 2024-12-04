@@ -1,8 +1,9 @@
 from santas_little_helpers.scraper_elf import scrape
 
-raw = scrape(1)
 
+raw = scrape(1)
 data = str(raw).replace("b'","").split("\\n")[0:-1]
+
 
 def part1(data=data):
 
@@ -17,7 +18,8 @@ def part1(data=data):
     for i, _ in enumerate(left):
         total += abs(left[i] - right[i])
         
-    print(f"Distance: {total}")
+    return total
+
 
 def part2(data=data):
 
@@ -33,7 +35,4 @@ def part2(data=data):
                 count += 1
         total += (count*l)
     
-    print(f"Similarity: {total}")
-
-part1()
-part2()
+    return total

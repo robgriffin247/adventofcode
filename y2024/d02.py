@@ -1,9 +1,10 @@
 from santas_little_helpers.scraper_elf import scrape
 import numpy as np
 
-raw = scrape(2)
 
+raw = scrape(2)
 data = str(raw).replace("b'","").split("\\n")[0:-1]
+
 
 def part1(data=data):
     safe = 0
@@ -18,6 +19,8 @@ def part1(data=data):
         if (len(set([int(np.sign(i)) for i in steps]))==1) & (max([abs(step) for step in steps]) in [1,2,3]):
             safe += 1
             
-    print(safe)
+    return safe
 
-part1()
+
+def part2(data=data):
+    return "incomplete"
