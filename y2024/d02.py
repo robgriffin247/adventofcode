@@ -1,28 +1,45 @@
 from santas_little_helpers.scraper_elf import scrape
 import numpy as np
 
-
 raw = scrape(2)
+
 data = str(raw).replace("b'","")
 
-
-def part1(data=data):
-
-    split_data = data.split("\\n")[0:-1]
-    safe = 0
-    rows = [[int(v) for v in r.split(" ")] for r in split_data]
-    for row in rows:
-        steps = []
-        for i, value in enumerate(row):
-            if i>0:
-                d = row[i-1] - value
-                steps.append(d)
-            
-        if (len(set([int(np.sign(i)) for i in steps]))==1) & (max([abs(step) for step in steps]) in [1,2,3]):
-            safe += 1
-            
-    return safe
+reports = [[int(value) for value in report.split(" ")] for report in data.split("\\n")[0:-1]]
 
 
-def part2(data=data):
-    return "incomplete"
+def part1(reports=reports):
+
+    def report_steps(report):
+        return [b-a for a,b in zip(report[:-1], report[1:])]
+
+    def is_safe(report_steps):    
+        if all(1 <= i <= 3 for i in report_steps) or all(-3 <= i <= -1 for i in report_steps):
+            return True
+        else:
+            return False
+
+    return sum(is_safe(report_steps(report)) for report in reports)
+
+
+
+def part2(reports=reports):
+
+    def report_steps(report):
+        return [b-a for a,b in zip(report[:-1], report[1:])]
+
+    def is_safe(report_steps):    
+        if all(1 <= i <= 3 for i in report_steps) or all(-3 <= i <= -1 for i in report_steps):
+            return True
+        else:
+            return False
+
+    def modify_report(report):
+        return [report[:i] + report[1+i:] for i in range(len(report))]
+    
+
+    modified_reports = [modify_report(report) for report in reports]
+
+    return sum(any([is_safe(report_steps(variant)) for variant in modified_report]) for modified_report in modified_reports)
+    # Alternatively modify part1 with just:
+    # return sum(any([is_safe(report_steps(variant)) for variant in modified_report]) for modified_report in [[report[:i] + report[1+i:] for i in range(len(report))] for report in reports])

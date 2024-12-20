@@ -1,5 +1,9 @@
-from y2024.d04 import part1, part2
-import pprint as pp
+from y2024.d02 import part1, part2
+from santas_little_helpers.scraper_elf import scrape
+import numpy as np
 
-pp.pprint(part1())
-pp.pprint(part2())
+
+print(part1())
+print(part2())
+
+

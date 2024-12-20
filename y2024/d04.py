@@ -1,6 +1,4 @@
 from santas_little_helpers.scraper_elf import scrape
-import re
-import pprint as pp
 import numpy as np
 
 raw = scrape(4)
@@ -29,12 +27,12 @@ def part1(data=data):
                 ]
             
             if x+4==matrix.shape[0]:
-                    lines.append(sub_matrix[np.ix_([1], [0,1,2,3])].tostring().decode().replace("\x00", ""))
-                    lines.append(sub_matrix[np.ix_([1], [0,1,2,3])].tostring().decode().replace("\x00", "")[::-1])
-                    lines.append(sub_matrix[np.ix_([2], [0,1,2,3])].tostring().decode().replace("\x00", ""))
-                    lines.append(sub_matrix[np.ix_([2], [0,1,2,3])].tostring().decode().replace("\x00", "")[::-1])
-                    lines.append(sub_matrix[np.ix_([3], [0,1,2,3])].tostring().decode().replace("\x00", ""))
-                    lines.append(sub_matrix[np.ix_([3], [0,1,2,3])].tostring().decode().replace("\x00", "")[::-1])
+                lines.append(sub_matrix[np.ix_([1], [0,1,2,3])].tostring().decode().replace("\x00", ""))
+                lines.append(sub_matrix[np.ix_([1], [0,1,2,3])].tostring().decode().replace("\x00", "")[::-1])
+                lines.append(sub_matrix[np.ix_([2], [0,1,2,3])].tostring().decode().replace("\x00", ""))
+                lines.append(sub_matrix[np.ix_([2], [0,1,2,3])].tostring().decode().replace("\x00", "")[::-1])
+                lines.append(sub_matrix[np.ix_([3], [0,1,2,3])].tostring().decode().replace("\x00", ""))
+                lines.append(sub_matrix[np.ix_([3], [0,1,2,3])].tostring().decode().replace("\x00", "")[::-1])
 
             if y+4==matrix.shape[1]:
                 lines.append(sub_matrix[np.ix_([0,1,2,3], [1])].tostring().decode().replace("\x00", ""))
@@ -59,10 +57,10 @@ def part2(data=data):
         for y in range(matrix.shape[1]-2):
             sub_matrix = matrix[np.ix_([x,x+1,x+2], [y,y+1,y+2])]
             lines = [
-                np.diag(sub_matrix).tostring().decode().replace("\x00", ""),
-                np.diag(np.rot90(sub_matrix, 1)).tostring().decode().replace("\x00", ""),
-                np.diag(np.rot90(sub_matrix, 2)).tostring().decode().replace("\x00", ""),
-                np.diag(np.rot90(sub_matrix, 3)).tostring().decode().replace("\x00", ""),
+                np.diag(sub_matrix),
+                np.diag(np.rot90(sub_matrix, 1)),
+                np.diag(np.rot90(sub_matrix, 2)),
+                np.diag(np.rot90(sub_matrix, 3)),
                 ]
-            count += sum([l=="MAS" for l in lines])==2
+            count += sum([l.tostring().decode().replace("\x00", "")=="MAS" for l in lines])==2
     return count
